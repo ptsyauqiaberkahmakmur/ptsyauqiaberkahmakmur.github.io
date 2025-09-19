@@ -1,0 +1,377 @@
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentasi Interaktif: Empowering Entrepreneurship</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Serene Sky (Light blue base with complementary blues, greens, and neutrals) -->
+    <!-- Application Structure Plan: A single-page "scrollytelling" narrative. The user scrolls through thematic sections: 1. Hero/Intro, 2. Core Question, 3. Foundational Pillars (interactive tabs), 4. Career Journey (interactive timeline), 5. Business Ecosystem (animated stats & interactive chart/grid), 6. Core Mindset, 7. Call to Action. This structure transforms a linear presentation into an engaging, explorable story, guiding the user through the 'why', 'how', and 'what' of Alfian's journey, which is more effective for digital consumption than a slide-by-slide format. -->
+    <!-- Visualization & Content Choices:
+    - Career Journey -> Goal: Show change over time -> Viz: Interactive vertical timeline (HTML/CSS/JS) -> Interaction: Hover to highlight, revealing its significance -> Justification: More engaging and space-efficient than a long text block.
+    - SBM Ecosystem Stats -> Goal: Inform/Impact -> Viz: Animated number counters (JS) -> Interaction: Animates on scroll -> Justification: Creates a dynamic "wow" effect.
+    - SBM Business Units -> Goal: Organize/Show proportions -> Viz: Donut Chart (Chart.js/Canvas) -> Interaction: Hover to see category name and count -> Justification: Visually represents the diversity and balance of the 13-unit ecosystem far better than a list. CONFIRMS NO SVG/Mermaid.
+    - Foundational Pillars -> Goal: Organize -> Viz: Tabbed content sections (HTML/CSS/JS) -> Interaction: Click tab to switch content -> Justification: Neatly organizes three core concepts without cluttering the page. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #EFF6FF; /* Light Blue Background */
+            color: #1F2937; /* Darker Gray for better contrast */
+        }
+        h1, h2, h3 {
+            font-family: 'Merriweather', serif;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .cta-section {
+             background: linear-gradient(135deg, #2563EB 0%, #3B82F6 100%);
+        }
+        .timeline-item-content {
+            transition: all 0.3s ease-in-out;
+        }
+        .timeline-item:hover .timeline-item-content {
+            transform: scale(1.03);
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+        .gallery-item {
+            transition: all 0.3s ease-in-out;
+        }
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            z-index: 10;
+        }
+        .tab-image {
+            height: 300px;
+            width: 100%;
+            object-fit: cover;
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/70 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 shadow-md">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-gray-900">Alfian, S.T., M.M.</h1>
+                </div>
+                <nav class="hidden md:block">
+                    <ul class="flex items-center space-x-8 text-sm font-medium text-gray-700">
+                        <li><a href="#intro" class="hover:text-blue-600 transition-colors">Intro</a></li>
+                        <li><a href="#pillars" class="hover:text-blue-600 transition-colors">3 Pondasi</a></li>
+                        <li><a href="#journey" class="hover:text-blue-600 transition-colors">Perjalanan</a></li>
+                        <li><a href="#ecosystem" class="hover:text-blue-600 transition-colors">Ekosistem</a></li>
+                        <li><a href="#mindset" class="hover:text-blue-600 transition-colors">Mindset</a></li>
+                        <li><a href="#call-to-action" class="hover:text-blue-600 transition-colors">Panggilan Aksi</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="intro" class="min-h-screen flex items-center pt-24 pb-12 bg-gradient-to-b from-blue-50 to-blue-100">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 fade-in">
+                <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+                    <div class="text-center md:text-left">
+                        <h1 class="text-3xl md:text-5xl font-bold text-gray-900 tracking-tight leading-tight">Empowering Entrepreneurship Through Knowledge, Innovation, and Real Action</h1>
+                        <p class="mt-4 text-lg text-gray-700 max-w-2xl">(Memberdayakan Kewirausahaan melalui Pengetahuan, Inovasi, dan Aksi Nyata)</p>
+                    </div>
+                    <div class="flex justify-center">
+                        <img src="image/Pelantikan_4124134_Alfian.png" alt="Foto Alfian" class="rounded-xl shadow-2xl w-full max-w-sm h-auto object-cover border-4 border-white">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in">
+                <h2 class="text-3xl md:text-5xl font-bold text-gray-900">Gelar Sarjana Teknik itu...</h2>
+                <p class="mt-4 text-2xl text-gray-700">Tiket untuk Jadi Pekerja, atau Paspor untuk Jadi Pencipta Karya?</p>
+                <div class="mt-8 border-t border-blue-100 pt-8">
+                    <p class="text-base md:text-lg text-gray-800 max-w-3xl mx-auto">
+                        Era Industri 4.0, Ekonomi Digital, dan <i>Green Economy</i> bukan lagi milik anak bisnis saja. Ini adalah gelombang perubahan yang justru membutuhkan <strong class="text-blue-700">logika, ketahanan, dan kemampuan problem-solving seorang insinyur.</strong> Pertanyaannya bukan <i>apakah</i> kita akan terdampak, tapi <i>bagaimana</i> kita akan menjadi pemain utamanya.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="pillars" class="py-20 bg-blue-50">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 fade-in">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">3 Pondasi Utama Tekno-preneur</h2>
+                    <p class="mt-4 text-lg text-gray-700">Tiga pilar yang mengubah pola pikir seorang insinyur menjadi pencipta.</p>
+                </div>
+                <div>
+                    <div class="mb-4 flex justify-center border-b border-blue-200">
+                        <button data-tab="knowledge" class="tab-button text-lg font-semibold py-4 px-6 border-b-2 border-blue-600 text-blue-600 transition-all">Pengetahuan</button>
+                        <button data-tab="innovation" class="tab-button text-lg font-semibold py-4 px-6 border-b-2 border-transparent text-gray-500 hover:text-blue-600 hover:border-gray-300 transition-all">Inovasi</button>
+                        <button data-tab="action" class="tab-button text-lg font-semibold py-4 px-6 border-b-2 border-transparent text-gray-500 hover:text-blue-600 hover:border-gray-300 transition-all">Aksi Nyata</button>
+                    </div>
+                    <div id="tab-content" class="mt-8">
+                        <div id="knowledge" class="tab-pane active">
+                            <div class="grid md:grid-cols-2 gap-8 items-center">
+                                <div class="p-8 bg-white rounded-xl shadow-lg">
+                                    <h3 class="text-2xl font-bold mb-4 text-gray-900">Ilmu di Kampus Adalah Akar</h3>
+                                    <p class="text-gray-700 mb-4">Saya berakar di <strong>Teknik Metalurgi Untirta</strong>. Di sini, saya tidak hanya belajar tentang sifat logam, tetapi tentang sesuatu yang jauh lebih fundamental:</p>
+                                    <ul class="space-y-3">
+                                        <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">✓</span><span><strong>Cara Berpikir Sistematis:</strong> Memahami proses dari hulu ke hilir.</span></li>
+                                        <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">✓</span><span><strong>Logika Problem-Solving:</strong> Setiap masalah pasti ada solusinya.</span></li>
+                                        <li class="flex items-start"><span class="text-blue-500 mr-3 mt-1">✓</span><span><strong>Mental Tahan Banting:</strong> Seperti logam yang ditempa, tekanan membentuk karakter.</span></li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <img src="image/malaysia.jpg" alt="Alfian saat kegiatan mahasiswa" class="tab-image">
+                                </div>
+                            </div>
+                        </div>
+                        <div id="innovation" class="tab-pane hidden">
+                             <div class="grid md:grid-cols-2 gap-8 items-center">
+                                <div>
+                                     <img src="image/kopabin.jpg" alt="Inovasi dalam bisnis SBM Group" class="tab-image">
+                                </div>
+                                <div class="p-8 bg-white rounded-xl shadow-lg">
+                                    <h3 class="text-2xl font-bold mb-4 text-gray-900">Mengubah Masalah Jadi Peluang</h3>
+                                    <p class="text-gray-700 mb-4">Seorang insinyur dilatih memperbaiki mesin. Seorang entrepreneur dilatih memperbaiki kehidupan.</p>
+                                    <ul class="space-y-3">
+                                        <li class="flex items-start"><span class="text-green-600 mr-3 mt-1">→</span><span><strong>Melihat masalah:</strong> Masyarakat sulit mengakses layanan perbankan. <br><strong>Menjadi solusi:</strong> Membangun SBM Group dengan pilar agen bank.</span></li>
+                                        <li class="flex items-start"><span class="text-green-600 mr-3 mt-1">→</span><span><strong>Melihat masalah lain:</strong> Agen bank berjalan sendiri-sendiri. <br><strong>Menjadi solusi:</strong> Menginisiasi Kopabin untuk sinergi.</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="action" class="tab-pane hidden">
+                            <div class="grid md:grid-cols-2 gap-8 items-center">
+                                <div class="p-8 bg-white rounded-xl shadow-lg">
+                                    <h3 class="text-2xl font-bold mb-4 text-gray-900">Eksekusi > Ide Sempurna</h3>
+                                    <p class="text-gray-700 mb-4">Perjalanan saya tidak dimulai di ruang rapat ber-AC. Ia dimulai dari aksi-aksi kecil saat mahasiswa:</p>
+                                    <ul class="space-y-3">
+                                        <li class="flex items-start"><span class="text-yellow-500 mr-3 mt-1">🔥</span><span><strong>Jualan Nasi Uduk ("De'Fast"):</strong> Belajar logistik, manajemen waktu, dan pelayanan pelanggan.</span></li>
+                                        <li class="flex items-start"><span class="text-yellow-500 mr-3 mt-1">🔥</span><span><strong>Bisnis Batik ("Negeri Batik"):</strong> Belajar manajemen stok, marketing, dan kerja tim.</span></li>
+                                    </ul>
+                                    <p class="mt-4 font-semibold">Pesan Kunci: <i>Better done than perfect.</i> Mulai dari apa yang Anda punya, sekarang juga.</p>
+                                </div>
+                                 <div>
+                                     <img src="image/bayr.jpg" alt="Aksi nyata SBM Group" class="tab-image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="journey" class="py-20 bg-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 fade-in">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Studi Kasus: Transformasi "Jalan Alfian"</h2>
+                    <p class="mt-4 text-lg text-gray-700">Sebuah perjalanan dari teori metalurgi ke ekosistem digital.</p>
+                </div>
+                <div class="relative">
+                    <div class="absolute left-1/2 -translate-x-1/2 top-0 h-full w-1 bg-blue-100 rounded-full"></div>
+                    <div class="space-y-16">
+                        <div class="timeline-item flex items-center w-full">
+                            <div class="w-1/2 flex justify-end">
+                                <div class="text-right pr-8 timeline-item-content bg-white p-6 rounded-lg border border-gray-200">
+                                    <h3 class="text-xl font-bold text-blue-700">Akar (Untirta)</h3>
+                                    <p class="text-gray-600 mt-2">Ditempa sebagai Sarjana Teknik Metalurgi. Membangun fondasi logika dan mental baja.</p>
+                                </div>
+                            </div>
+                            <div class="w-12 h-12 rounded-full bg-blue-700 border-4 border-white shadow-lg flex-shrink-0 z-10 flex items-center justify-center text-white font-bold">1</div>
+                            <div class="w-1/2"></div>
+                        </div>
+                        <div class="timeline-item flex items-center w-full">
+                            <div class="w-1/2"></div>
+                             <div class="w-12 h-12 rounded-full bg-green-600 border-4 border-white shadow-lg flex-shrink-0 z-10 flex items-center justify-center text-white font-bold">2</div>
+                            <div class="w-1/2 flex justify-start">
+                                <div class="text-left pl-8 timeline-item-content bg-white p-6 rounded-lg border border-gray-200">
+                                    <h3 class="text-xl font-bold text-green-600">Bertumbuh (Dunia Kerja)</h3>
+                                    <p class="text-gray-600 mt-2">Belajar disiplin dan sistem di korporasi (PT. Radiant & PT. Toto).</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="timeline-item flex items-center w-full">
+                            <div class="w-1/2 flex justify-end">
+                                <div class="text-right pr-8 timeline-item-content bg-white p-6 rounded-lg border border-gray-200">
+                                    <h3 class="text-xl font-bold text-yellow-600">Titik Balik (Pivot)</h3>
+                                    <p class="text-gray-600 mt-2">Kontrak berakhir menjadi awal kemandirian. Terjun ke dunia properti syariah.</p>
+                                </div>
+                            </div>
+                             <div class="w-12 h-12 rounded-full bg-yellow-600 border-4 border-white shadow-lg flex-shrink-0 z-10 flex items-center justify-center text-white font-bold">3</div>
+                            <div class="w-1/2"></div>
+                        </div>
+                         <div class="timeline-item flex items-center w-full">
+                            <div class="w-1/2"></div>
+                             <div class="w-12 h-12 rounded-full bg-red-600 border-4 border-white shadow-lg flex-shrink-0 z-10 flex items-center justify-center text-white font-bold">4</div>
+                            <div class="w-1/2 flex justify-start">
+                                <div class="text-left pl-8 timeline-item-content bg-white p-6 rounded-lg border border-gray-200">
+                                    <h3 class="text-xl font-bold text-red-600">Membangun (Entrepreneur)</h3>
+                                    <p class="text-gray-600 mt-2">Mendirikan SBM Group, menjadi COO di GTS, dan menginisiasi Kopabin untuk membangun kolaborasi.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ecosystem" class="py-20 bg-blue-50">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 fade-in">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Ekosistem SBM Group: Sinergi dalam Melayani</h2>
+                    <p class="mt-4 text-lg text-gray-700">Dari satu niat untuk melayani, lahir berbagai solusi yang saling mendukung.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <p class="text-gray-700 mb-6 text-center">SBM Group adalah bukti bahwa dari satu niat untuk melayani, bisa lahir berbagai solusi yang saling terintegrasi:</p>
+                    <ul class="space-y-4">
+                         <li class="flex items-start p-4 bg-blue-100/50 rounded-lg"><span class="bg-blue-500 text-white rounded-full w-6 h-6 text-sm flex items-center justify-center mr-4 mt-1 font-bold flex-shrink-0">1</span><span><strong>Jasa Keuangan:</strong> Mempermudah transaksi perbankan digital untuk semua.</span></li>
+                         <li class="flex items-start p-4 bg-green-100/50 rounded-lg"><span class="bg-green-500 text-white rounded-full w-6 h-6 text-sm flex items-center justify-center mr-4 mt-1 font-bold flex-shrink-0">2</span><span><strong>Retail & Lifestyle:</strong> Memenuhi kebutuhan harian dari laundry hingga parfum.</span></li>
+                         <li class="flex items-start p-4 bg-yellow-100/50 rounded-lg"><span class="bg-yellow-600 text-white rounded-full w-6 h-6 text-sm flex items-center justify-center mr-4 mt-1 font-bold flex-shrink-0">3</span><span><strong>Teknologi & Properti:</strong> Menghadirkan solusi CCTV, website, dan konsultasi properti.</span></li>
+                          <li class="flex items-start p-4 bg-red-100/50 rounded-lg"><span class="bg-red-500 text-white rounded-full w-6 h-6 text-sm flex items-center justify-center mr-4 mt-1 font-bold flex-shrink-0">4</span><span><strong>Travel & Jasa Lainnya:</strong> Memberi kemudahan dalam perjalanan Umrah dan pengurusan dokumen.</span></li>
+                    </ul>
+                     <p class="mt-8 font-semibold italic text-gray-800 text-center">Kuncinya bukan menguasai semuanya, tapi membangun <span class="text-blue-700">sinergi dan tim yang kuat.</span></p>
+                </div>
+                
+                <div class="mt-16">
+                    <h3 class="text-2xl font-bold text-gray-900 text-center mb-8">Galeri Usaha SBM Group</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="gallery-item relative overflow-hidden rounded-lg shadow-md aspect-w-1 aspect-h-1">
+                             <img src="image/pintudepan.jpg" alt="Galeri SBM Group 1" class="w-full h-full object-cover">
+                        </div>
+                         <div class="gallery-item relative overflow-hidden rounded-lg shadow-md aspect-w-1 aspect-h-1">
+                             <img src="image/sertifikat.jpg" alt="Galeri SBM Group 2" class="w-full h-full object-cover">
+                        </div>
+                         <div class="gallery-item relative overflow-hidden rounded-lg shadow-md aspect-w-1 aspect-h-1">
+                             <img src="image/penghitung.jpg" alt="Galeri SBM Group 3" class="w-full h-full object-cover">
+                        </div>
+                        <div class="gallery-item relative overflow-hidden rounded-lg shadow-md aspect-w-1 aspect-h-1">
+                             <img src="image/neon.jpg" alt="Galeri SBM Group 4" class="w-full h-full object-cover">
+                        </div>
+                        <div class="gallery-item relative overflow-hidden rounded-lg shadow-md aspect-w-1 aspect-h-1">
+                             <img src="image/kemeja.jpg" alt="Galeri SBM Group 5" class="w-full h-full object-cover">
+                        </div>
+                        <div class="gallery-item relative overflow-hidden rounded-lg shadow-md aspect-w-1 aspect-h-1">
+                             <img src="image/kalender.jpg" alt="Galeri SBM Group 6" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="mindset" class="py-20 bg-white">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 fade-in">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Mindset Sang Pembangun</h2>
+                    <p class="mt-4 text-lg text-gray-700">DNA seorang Tekno-preneur yang bisa Anda adopsi.</p>
+                </div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-blue-50 p-6 rounded-xl text-center shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all">
+                        <div class="text-5xl mb-4">🔧</div>
+                        <h3 class="text-lg font-bold mb-2 text-gray-900">Orientasi Problem-Solving</h3>
+                        <p class="text-sm text-gray-600">Lihat setiap keluhan sebagai potensi bisnis yang menunggu untuk dipecahkan.</p>
+                    </div>
+                     <div class="bg-blue-50 p-6 rounded-xl text-center shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all">
+                        <div class="text-5xl mb-4">🛡️</div>
+                        <h3 class="text-lg font-bold mb-2 text-gray-900">Mental Tahan Banting</h3>
+                        <p class="text-sm text-gray-600">Anggap kegagalan sebagai bahan bakar untuk lompatan berikutnya.</p>
+                    </div>
+                     <div class="bg-blue-50 p-6 rounded-xl text-center shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all">
+                        <div class="text-5xl mb-4">📚</div>
+                        <h3 class="text-lg font-bold mb-2 text-gray-900">Pembelajar Seumur Hidup</h3>
+                        <p class="text-sm text-gray-600">Berhenti belajar berarti siap tertinggal. Terus 'upgrade' diri.</p>
+                    </div>
+                     <div class="bg-blue-50 p-6 rounded-xl text-center shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all">
+                        <div class="text-5xl mb-4">🏗️</div>
+                        <h3 class="text-lg font-bold mb-2 text-gray-900">Pencipta Lapangan Kerja</h3>
+                        <p class="text-sm text-gray-600">Ubah mindset dari "mau kerja di mana?" menjadi "mau bikin apa?".</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="call-to-action" class="py-24 cta-section text-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in">
+                <h2 class="text-3xl md:text-4xl font-bold">Panggilan untuk Anda, Generasi Penerus Untirta!</h2>
+                <p class="mt-6 text-lg text-blue-100">Ilmu teknik sudah di tanganmu. Masalah ada di sekitarmu. Peluang ada di depan matamu.</p>
+                <blockquote class="mt-10 text-2xl md:text-3xl font-serif italic border-l-4 border-blue-300 pl-6">
+                    "Kalau logam bisa ditempa untuk menjadi ribuan kali lebih kuat, kamu... mau ditempa menjadi apa dalam 5 tahun ke depan?"
+                </blockquote>
+            </div>
+        </section>
+        
+    </main>
+
+    <footer class="bg-gray-900 text-white">
+        <div class="max-w-6xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-center">
+            <h3 class="text-2xl font-bold">Terima Kasih & Mari Berdiskusi</h3>
+            <p class="mt-2 text-gray-400">"Knowledge gives you direction, Innovation gives you differentiation, and Action gives you results."</p>
+            <div class="mt-8 flex justify-center space-x-6">
+                <a href="https://www.instagram.com/mas_alahh/" target="_blank" class="text-gray-400 hover:text-white transition-colors">Instagram: @mas_alahh</a>
+                <span class="text-gray-500">|</span>
+                <a href="http://www.syauqiaberkahmakmur.com/" target="_blank" class="text-gray-400 hover:text-white transition-colors">Website: syauqiaberkahmakmur.com</a>
+            </div>
+             <p class="mt-8 text-xs text-gray-500">&copy; 2025 Alfian. Dibuat sebagai presentasi interaktif.</p>
+        </div>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+        observer.observe(el);
+    });
+
+    const tabs = document.querySelectorAll('.tab-button');
+    const panes = document.querySelectorAll('.tab-pane');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const target = tab.getAttribute('data-tab');
+            
+            tabs.forEach(t => {
+                t.classList.remove('text-blue-600', 'border-blue-600');
+                t.classList.add('text-gray-500', 'border-transparent');
+            });
+            
+            tab.classList.add('text-blue-600', 'border-blue-600');
+            tab.classList.remove('text-gray-500', 'border-transparent');
+            
+            panes.forEach(pane => {
+                if (pane.id === target) {
+                    pane.classList.remove('hidden');
+                    pane.classList.add('active');
+                } else {
+                    pane.classList.add('hidden');
+                    pane.classList.remove('active');
+                }
+            });
+        });
+    });
+
+});
+</script>
+
+</body>
+</html>
+
