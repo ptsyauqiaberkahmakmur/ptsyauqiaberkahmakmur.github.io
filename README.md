@@ -1,1 +1,0 @@
-# ptsyauqiaberkahmakmur.github.io
